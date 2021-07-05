@@ -3,17 +3,18 @@ module Main where
 import           Calamity
 import           Calamity.Cache.InMemory
 import           Calamity.Commands
+import           Calamity.Commands.Context (useFullContext)
 import           Calamity.Metrics.Noop
 import           Control.Lens
 import           Control.Monad
 import           Data.Default
-import           Data.Generics.Labels    ()
+import           Data.Generics.Labels      ()
 import           Data.Maybe
-import           Data.Text.Lazy          (Text)
-import qualified Data.Text.Lazy          as T
+import           Data.Text.Lazy            (Text)
+import qualified Data.Text.Lazy            as T
 import qualified Di
 import           DiPolysemy
-import qualified Polysemy                as P
+import qualified Polysemy                  as P
 
 main :: IO ()
 main = Di.new $ \di ->
@@ -23,10 +24,11 @@ main = Di.new $ \di ->
   . runDiToIO di
   . runCacheInMemory
   . runMetricsNoop
+  . useFullContext
   . useConstantPrefix "!"
   . runBotIO (BotToken "<your token here>") defaultIntents
   $ do
-    info @Text "Connected successfully."
+    info @Text "Bot starting up!"
     react @'MessageCreateEvt $ \msg -> do
       when ("Haskell" `T.isInfixOf` (msg ^. #content)) $
         void . invoke $ CreateReaction msg msg (UnicodeEmoji "😄")
