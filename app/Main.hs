@@ -10,8 +10,8 @@ import           Control.Monad
 import           Data.Default
 import           Data.Generics.Labels      ()
 import           Data.Maybe
-import           Data.Text.Lazy            (Text)
-import qualified Data.Text.Lazy            as T
+import           Data.Text                 (Text)
+import qualified Data.Text                 as T
 import qualified Di
 import           DiPolysemy
 import qualified Polysemy                  as P
@@ -28,12 +28,12 @@ main = Di.new $ \di ->
   . useConstantPrefix "!"
   . runBotIO (BotToken "<your token here>") defaultIntents
   $ do
-    info @Text "Bot starting up!"
-    react @'MessageCreateEvt $ \msg -> do
+    info @Text "Setting up commands and handlers..."
+    react @'MessageCreateEvt $ \(msg, _usr, _member) -> do
       when ("Haskell" `T.isInfixOf` (msg ^. #content)) $
         void . invoke $ CreateReaction msg msg (UnicodeEmoji "😄")
 
-    react @'MessageUpdateEvt $ \(_oldMsg, newMsg) -> do
+    react @'MessageUpdateEvt $ \(_oldMsg, newMsg, _user, _member) -> do
       void . tell @Text newMsg $ "Hey! I saw that!"
 
     addCommands $ do

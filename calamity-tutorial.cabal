@@ -6,9 +6,11 @@ copyright:     MIT
 
 executable calamity-tutorial
   main-is:            Main.hs
+
+  -- Use a version of `base` corresponding with GHC 8.10.x
   build-depends:
-    , base             ^>=4.14.1.0
-    , calamity         >=0.1.30   && <0.1.31
+    , base             ^>=4.14
+    , calamity         >=0.2.0 && <0.2.1
     , data-default
     , data-flags
     , di
