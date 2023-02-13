@@ -4,7 +4,7 @@ This repository contains the source for my [Calamity](https://hackage.haskell.or
 
 ## Pre-requisites
 
-This project requires the GHC 8.10 compiler and the Cabal build tool. See the [Haskell downloads page](https://www.haskell.org/downloads/) for up-to-date information on how to aquire those.
+This project requires the GHC 9.2 compiler and the Cabal build tool. See the [Haskell downloads page](https://www.haskell.org/downloads/) for up-to-date information on how to aquire those.
 
 **Make sure to replace the `"<your token here>"` string in `Main.hs` with your bot's secret token! You can obtain one through the [Discord Developer Portal](https://discord.com/developers). Also a reminder: the token is secret, treat it like you'd treat a password!**
 

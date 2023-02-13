@@ -5,15 +5,14 @@ import           Calamity.Cache.InMemory
 import           Calamity.Commands
 import           Calamity.Commands.Context (useFullContext)
 import           Calamity.Metrics.Noop
-import           Control.Lens
 import           Control.Monad
 import           Data.Default
-import           Data.Generics.Labels      ()
 import           Data.Maybe
 import           Data.Text                 (Text)
 import qualified Data.Text                 as T
 import qualified Di
 import           DiPolysemy
+import           Optics
 import qualified Polysemy                  as P
 
 main :: IO ()
@@ -39,7 +38,7 @@ main = Di.new $ \di ->
     addCommands $ do
       helpCommand
       command @'[Int, Maybe GuildChannel] "slowmode" $ \ctx seconds mchan -> do
-        let cid = maybe (ctx ^. #channel . to getID) getID mchan :: Snowflake Channel
+        let cid = maybe (ctx ^. #channel % to getID) getID mchan :: Snowflake Channel
         void . invoke $ ModifyChannel cid $ def
           & #rateLimitPerUser ?~ seconds
         void . invoke $
