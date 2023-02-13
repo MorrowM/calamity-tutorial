@@ -7,16 +7,15 @@ copyright:     MIT
 executable calamity-tutorial
   main-is:            Main.hs
 
-  -- Use a version of `base` corresponding with GHC 8.10.x
+  -- Use a version of `base` corresponding with GHC 9.2.x
   build-depends:
-    , base             ^>=4.14
-    , calamity         >=0.2.0 && <0.2.1
+    , base             ^>=4.16
+    , calamity         ^>=0.7
     , data-default
     , data-flags
     , di
     , di-polysemy
-    , generic-lens
-    , lens
+    , optics
     , polysemy
     , polysemy-plugin
     , text
